@@ -1,16 +1,41 @@
 package com.android.sss;
 
+import android.content.Intent;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+
+import com.viewpagerindicator.CirclePageIndicator;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ViewPager viewPager;
+    private CirclePageIndicator circlePageIndicator;
+    private Button btn_getStarted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        viewPager = (ViewPager) findViewById(R.id.viewPagerMain);
+        MainViewPagerAdapter myPagerAdapter = new MainViewPagerAdapter(this);
+        viewPager.setAdapter(myPagerAdapter);
+
+        circlePageIndicator = (CirclePageIndicator) findViewById(R.id.circlePageIndicatorMain);
+        circlePageIndicator.setViewPager(viewPager);
+
+        btn_getStarted = (Button) findViewById(R.id.buttonGetStartedMain);
+        btn_getStarted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
+        });
     }
 
     @Override

@@ -1,16 +1,30 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity">
+    android:background="@color/main_green_theme"
+    android:orientation="vertical">
 
-    <TextView
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerMain"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="25dp"
+        android:layout_weight="1" />
+
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/circlePageIndicatorMain"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:background="@color/main_green_theme"
+        android:padding="3dp" />
+
+    <Button
+        android:id="@+id/buttonGetStartedMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
-</RelativeLayout>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/buttonshape"
+        android:text="@string/btn_get_started" />
+</LinearLayout>
