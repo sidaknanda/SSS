@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkIfLoggedIn() {
         SharedPreferences preferences = getSharedPreferences(Utils.PREF_SSS_PREFERENCES, Context.MODE_PRIVATE);
-        if(preferences.getString(Utils.PREF_JSON_USER_DETAILS, null)!=null) {
+        if (preferences.getString(Utils.PREF_JSON_USER_DETAILS, null) != null) {
             startActivity(new Intent(this, DashboardActivity.class));
         }
     }
@@ -58,6 +58,14 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
     }
 
     @Override
