@@ -1,6 +1,8 @@
 package com.android.sss;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +24,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        checkIfLoggedIn();
+
+        initSetup();
+    }
+
+    private void checkIfLoggedIn() {
+        SharedPreferences preferences = getSharedPreferences(Utils.PREF_SSS_PREFERENCES, Context.MODE_PRIVATE);
+        if(preferences.getString(Utils.PREF_JSON_USER_DETAILS, null)!=null) {
+            startActivity(new Intent(this, DashboardActivity.class));
+        }
+    }
+
+    private void initSetup() {
         viewPager = (ViewPager) findViewById(R.id.viewPagerMain);
         MainViewPagerAdapter myPagerAdapter = new MainViewPagerAdapter(this);
         viewPager.setAdapter(myPagerAdapter);

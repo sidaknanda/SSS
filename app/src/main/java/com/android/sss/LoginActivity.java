@@ -1,6 +1,9 @@
 package com.android.sss;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -20,10 +23,12 @@ import org.json.JSONException;
  */
 public class LoginActivity extends AppCompatActivity {
 
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
     private EditText etLoginId, etPassword;
     private FloatingActionButton fabLogin;
     private VolleySingleton volleySingleton = VolleySingleton.getInstance();
-    private ProgressDialog dialog = Utils.getProgressDialog(LoginActivity.this);
+    private ProgressDialog dialog;
     private JSONArray userDetailsArray;
     String loginId;
     String password;
@@ -33,10 +38,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        etLoginId = (EditText) findViewById(R.id.et_loginId);
-        etPassword = (EditText) findViewById(R.id.et_password);
+        initSetup();
+        setupButtonClicks();
+    }
 
-        fabLogin = (FloatingActionButton) findViewById(R.id.fab_login);
+    private void setupButtonClicks() {
         fabLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,25 +58,40 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             userDetailsArray = new JSONArray(response);
+
+                            editor.putString(Utils.PREF_JSON_USER_DETAILS, userDetailsArray.toString());
+                            editor.commit();
                             resisterGCM();
+                            startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
+                            dialog.dismiss();
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            dialog.dismiss();
                         }
 
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        error.printStackTrace();
+                        dialog.dismiss();
                     }
                 });
-
                 queue.add(loginRequest);
             }
         });
     }
 
-    private void resisterGCM() {
+    private void initSetup() {
+        preferences = getSharedPreferences(Utils.PREF_SSS_PREFERENCES, Context.MODE_PRIVATE);
+        editor = preferences.edit();
+        dialog = Utils.getProgressDialog(LoginActivity.this);
+        etLoginId = (EditText) findViewById(R.id.et_loginId);
+        etPassword = (EditText) findViewById(R.id.et_password);
+        fabLogin = (FloatingActionButton) findViewById(R.id.fab_login);
+    }
 
+    private void resisterGCM() {
+        startService(new Intent(this, RegisterGcmIdService.class));
     }
 }
