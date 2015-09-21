@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 /**
- * Created by optimus158 on 26-Aug-15.
+ * Created by optimus 158 on 26-Aug-15.
  */
 public class SSSApplication extends Application {
 
