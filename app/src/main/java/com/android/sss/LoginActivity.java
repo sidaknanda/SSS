@@ -7,8 +7,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,8 +32,9 @@ public class LoginActivity extends AppCompatActivity {
     private VolleySingleton volleySingleton = VolleySingleton.getInstance();
     private ProgressDialog dialog;
     private JSONArray userDetailsArray;
-    String loginId;
-    String password;
+    private String loginId;
+    private String password;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         error.printStackTrace();
+                        Toast.makeText(LoginActivity.this,"Internet Issue", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 });
@@ -85,10 +89,13 @@ public class LoginActivity extends AppCompatActivity {
     private void initSetup() {
         preferences = getSharedPreferences(Utils.PREF_SSS_PREFERENCES, Context.MODE_PRIVATE);
         editor = preferences.edit();
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         dialog = Utils.getProgressDialog(LoginActivity.this);
         etLoginId = (EditText) findViewById(R.id.et_loginId);
         etPassword = (EditText) findViewById(R.id.et_password);
         fabLogin = (FloatingActionButton) findViewById(R.id.fab_login);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void resisterGCM() {

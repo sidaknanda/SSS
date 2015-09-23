@@ -7,6 +7,10 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
     <ImageView
         android:id="@+id/imageViewLogo"
         android:layout_width="wrap_content"
@@ -47,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/fab_ic_next"
-        app:backgroundTint="@color/main_green_theme"
+        app:backgroundTint="@color/colorPrimary"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp" />
 </LinearLayout>

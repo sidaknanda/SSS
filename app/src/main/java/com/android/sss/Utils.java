@@ -14,11 +14,11 @@ public class Utils {
     public static final String PASSWORD = "Password";
 
     public static final String getGcmDeviceRegistrationUrl(String loginId, String password, String gcmId) {
-        return "http://172.16.2.97/RegisterGcmId.php?LoginId=" + loginId + "&Password=" + password + "&GCMID=" + gcmId;
+        return "http://172.16.2.128/RegisterGcmId.php?LoginId=" + loginId + "&Password=" + password + "&GCMID=" + gcmId;
     }
 
     public static final String getLoginUrl(String loginId, String password) {
-        return "http://172.16.2.97/GetStudentDetails.php?LoginId=" + loginId + "&Password=" + password;
+        return "http://172.16.2.128/GetStudentDetails.php?LoginId=" + loginId + "&Password=" + password;
     }
 
     public static final ProgressDialog getProgressDialog(Context context) {

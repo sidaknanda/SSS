@@ -8,4 +8,6 @@
     <string name="btn_get_started">Get Started</string>
     <string name="loginId">Login ID</string>
     <string name="password">Password</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
 </resources>
