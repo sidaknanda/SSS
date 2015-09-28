@@ -65,7 +65,6 @@ public class RegisterGcmIdService extends IntentService {
             StringRequest request = new StringRequest(Utils.getGcmDeviceRegistrationUrl(userDetailsJson.getString(Utils.LOGINID), userDetailsJson.getString(Utils.PASSWORD), token), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    Toast.makeText(SSSApplication.getAppContext(), response, Toast.LENGTH_LONG).show();
                 }
             }, new Response.ErrorListener() {
                 @Override

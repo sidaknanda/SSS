@@ -8,6 +8,6 @@
     android:minHeight="?attr/actionBarSize"
     local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    local:title="Student Surveillance System">
+    local:title="SSS">
 
 </android.support.v7.widget.Toolbar>

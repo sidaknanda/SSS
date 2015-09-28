@@ -8,33 +8,33 @@ import android.os.Parcelable;
  */
 public class StudentModel implements Parcelable {
 
-    public String Name;
-    public String AdmissionNumber;
+    public String StudentName;
+    public String AdmissionNo;
     public String FatherName;
     public String MotherName;
     public String StudentClass;
-    public String ContactNumber1;
-    public String ContactNumber2;
+    public String ContactNo1;
+    public String ContactNo2;
     public String EmailId;
     public String RFID;
     public String GCMID;
     public String LoginId;
     public String Password;
 
-    public String getName() {
-        return Name;
+    public String getStudentName() {
+        return StudentName;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setStudentName(String studentName) {
+        StudentName = studentName;
     }
 
-    public String getAdmissionNumber() {
-        return AdmissionNumber;
+    public String getAdmissionNo() {
+        return AdmissionNo;
     }
 
-    public void setAdmissionNumber(String admissionNumber) {
-        AdmissionNumber = admissionNumber;
+    public void setAdmissionNo(String admissionNo) {
+        AdmissionNo = admissionNo;
     }
 
     public String getFatherName() {
@@ -53,14 +53,6 @@ public class StudentModel implements Parcelable {
         MotherName = motherName;
     }
 
-    public String getContactNumber1() {
-        return ContactNumber1;
-    }
-
-    public void setContactNumber1(String contactNumber1) {
-        ContactNumber1 = contactNumber1;
-    }
-
     public String getStudentClass() {
         return StudentClass;
     }
@@ -69,12 +61,20 @@ public class StudentModel implements Parcelable {
         StudentClass = studentClass;
     }
 
-    public String getContactNumber2() {
-        return ContactNumber2;
+    public String getContactNo1() {
+        return ContactNo1;
     }
 
-    public void setContactNumber2(String contactNumber2) {
-        ContactNumber2 = contactNumber2;
+    public void setContactNo1(String contactNo1) {
+        ContactNo1 = contactNo1;
+    }
+
+    public String getContactNo2() {
+        return ContactNo2;
+    }
+
+    public void setContactNo2(String contactNo2) {
+        ContactNo2 = contactNo2;
     }
 
     public String getEmailId() {
@@ -118,13 +118,13 @@ public class StudentModel implements Parcelable {
     }
 
     protected StudentModel(Parcel in) {
-        Name = in.readString();
-        AdmissionNumber = in.readString();
+        StudentName = in.readString();
+        AdmissionNo = in.readString();
         FatherName = in.readString();
         MotherName = in.readString();
         StudentClass = in.readString();
-        ContactNumber1 = in.readString();
-        ContactNumber2 = in.readString();
+        ContactNo1 = in.readString();
+        ContactNo2 = in.readString();
         EmailId = in.readString();
         RFID = in.readString();
         GCMID = in.readString();
@@ -139,13 +139,13 @@ public class StudentModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(Name);
-        dest.writeString(AdmissionNumber);
+        dest.writeString(StudentName);
+        dest.writeString(AdmissionNo);
         dest.writeString(FatherName);
         dest.writeString(MotherName);
         dest.writeString(StudentClass);
-        dest.writeString(ContactNumber1);
-        dest.writeString(ContactNumber2);
+        dest.writeString(ContactNo1);
+        dest.writeString(ContactNo2);
         dest.writeString(EmailId);
         dest.writeString(RFID);
         dest.writeString(GCMID);

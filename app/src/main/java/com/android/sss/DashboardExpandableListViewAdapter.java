@@ -15,7 +15,7 @@ public class DashboardExpandableListViewAdapter extends BaseExpandableListAdapte
 	private List<String> list;
 	private HashMap<String, List<String>> map;
 	private Context context;
-	public DashboardExpandableListViewAdapter(Context context, List<String> list,HashMap<String, List<String>> map) {
+	public DashboardExpandableListViewAdapter(Context context, List<String> list, HashMap<String, List<String>> map) {
 		this.context=context;
 		this.list=list;
 		this.map=map;
@@ -35,9 +35,9 @@ public class DashboardExpandableListViewAdapter extends BaseExpandableListAdapte
 			boolean isLastChild, View convertView, ViewGroup parent) {
 		String temp = (String) getChild(groupPosition, childPosition);
 		LayoutInflater inflator = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		convertView = inflator.inflate(R.layout.layout_child, null);
+		convertView = inflator.inflate(R.layout.e_list_dashboard_child, null);
 		
-		TextView child = (TextView) convertView.findViewById(R.id.textViewChild);
+		TextView child = (TextView) convertView.findViewById(R.id.textViewDashboardChild);
 		child.setText(temp);
 		return convertView;
 	}
@@ -67,9 +67,9 @@ public class DashboardExpandableListViewAdapter extends BaseExpandableListAdapte
 			View convertView, ViewGroup parent) {
 		String temp = (String) getGroup(groupPosition);
 		LayoutInflater inflator = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		convertView = inflator.inflate(R.layout.layout_parent, null);
+		convertView = inflator.inflate(R.layout.e_list_dashboard_parent, null);
 		
-		TextView parent_tv = (TextView) convertView.findViewById(R.id.textViewParent);
+		TextView parent_tv = (TextView) convertView.findViewById(R.id.textViewDashboardParent);
 		parent_tv.setText(temp);
 		return convertView;
 	}
