@@ -8,14 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 /**
  * Created by OPTIMUSDOM ubuntu151 on 8/10/15.
  */
 public class StudentFeedFragment extends Fragment {
 
-    private int position;// expandable listview click student position
     private StudentModel selectedStudent;
 
     @Nullable
