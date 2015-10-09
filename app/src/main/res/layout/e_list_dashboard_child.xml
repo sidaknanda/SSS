@@ -6,16 +6,16 @@
 
     <TextView
         android:id="@+id/textViewDashboardChild"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_margin="5dp"
-        android:layout_toEndOf="@+id/imageView"
-        android:layout_toRightOf="@+id/imageView"
+        android:layout_toEndOf="@+id/imageViewChildIcon"
+        android:layout_toRightOf="@+id/imageViewChildIcon"
         android:text="New True" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewChildIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

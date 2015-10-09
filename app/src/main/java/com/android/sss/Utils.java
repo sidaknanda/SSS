@@ -29,11 +29,11 @@ public class Utils {
     public static final String DASHBOARD_LIST_REPORTBUG = "Report Bug";
 
     public static final String getGcmDeviceRegistrationUrl(String loginId, String password, String gcmId) {
-        return "http://172.16.2.150/RegisterGcmId.php?LoginId=" + loginId + "&Password=" + password + "&GCMID=" + gcmId;
+        return "http://172.16.1.34/RegisterGcmId.php?LoginId=" + loginId + "&Password=" + password + "&GCMID=" + gcmId;
     }
 
     public static final String getLoginUrl(String loginId, String password) {
-        return "http://172.16.2.150/GetStudentDetails.php?LoginId=" + loginId + "&Password=" + password;
+        return "http://172.16.1.34/GetStudentDetails.php?LoginId=" + loginId + "&Password=" + password;
     }
 
     public static final ProgressDialog getProgressDialog(Context context) {

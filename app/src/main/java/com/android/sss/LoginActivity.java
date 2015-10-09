@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         error.printStackTrace();
-                        Toast.makeText(LoginActivity.this,"Internet Issue", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Internet Issue", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 });
@@ -100,5 +100,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void resisterGCM() {
         startService(new Intent(this, RegisterGcmIdService.class));
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent startMain = new Intent(this, MainActivity.class);
+        startActivity(startMain);
     }
 }

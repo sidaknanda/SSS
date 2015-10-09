@@ -1,9 +1,11 @@
 package com.android.sss;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +30,8 @@ public class DashboardActivity extends AppCompatActivity {
     private ExpandableListView dashboardItems;
     private HashMap<String, List<String>> dashboardMap;
     private ArrayList<String> dashboardList;
-    private DashboardExpandableListViewAdapter dashboardExpandableListViewAdapter;
+    private DashboardListAdapter dashboardListAdapter;
+    private ArrayList<StudentModel> students;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,21 +39,28 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         initSetup();
-        setupDashboardListAdapter();
+        setupListAdapter();
     }
 
     private void initSetup() {
         preferences = getSharedPreferences(Utils.PREF_SSS_PREFERENCES, Context.MODE_PRIVATE);
+        editor = preferences.edit();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawerDashboard = (DrawerLayout) findViewById(R.id.drawer_layout);
         dashboardItems = (ExpandableListView) findViewById(R.id.expandableListViewDashboard);
 
         setSupportActionBar(toolbar);
-        setupDashboardDrawer();
+        FragmentManager transaction = getSupportFragmentManager();
+        StudentFeedFragment studentFeedFragment = new StudentFeedFragment();
+        transaction.beginTransaction().replace(R.id.frameLayout, studentFeedFragment).commit();
+
+        students = Utils.getLoggedInUserStudents();
+
+        setupDrawer();
     }
 
-    private void setupDashboardDrawer() {
+    private void setupDrawer() {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerDashboard, toolbar, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
@@ -70,13 +80,48 @@ public class DashboardActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
     }
 
-    private void setupDashboardListAdapter() {
-        setupExpandableListviewData();
-        dashboardExpandableListViewAdapter = new DashboardExpandableListViewAdapter(this, dashboardList, dashboardMap);
-        dashboardItems.setAdapter(dashboardExpandableListViewAdapter);
+    private void setupListAdapter() {
+        setupExpandableListData();
+        dashboardListAdapter = new DashboardListAdapter(this, dashboardList, dashboardMap);
+        dashboardItems.setAdapter(dashboardListAdapter);
+        dashboardItems.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                FragmentManager transaction = getSupportFragmentManager();
+                StudentFeedFragment studentFeedFragment = new StudentFeedFragment();
+                transaction.beginTransaction().replace(R.id.frameLayout, studentFeedFragment).commit();
+                return false;
+            }
+        });
+        dashboardItems.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                setupItemsClick(parent, v, groupPosition, id);
+                return false;
+            }
+        });
     }
 
-    private void setupExpandableListviewData() {
+    private void setupItemsClick(ExpandableListView parent, View v, int groupPosition, long id) {
+        switch (groupPosition) {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                editor.putString(Utils.PREF_JSON_USER_DETAILS, null);
+                editor.commit();
+                startActivity(new Intent(this, LoginActivity.class));
+                break;
+            case 4:
+                break;
+        }
+    }
+
+
+    private void setupExpandableListData() {
         dashboardMap = new HashMap();
 
         dashboardList = new ArrayList();
@@ -87,14 +132,14 @@ public class DashboardActivity extends AppCompatActivity {
         dashboardList.add(Utils.DASHBOARD_LIST_LOGOUT);
         dashboardList.add(Utils.DASHBOARD_LIST_REPORTBUG);
 
-        dashboardMap.put(dashboardList.get(0), generateStudentNameList());
-        dashboardMap.put(dashboardList.get(1), null);
-        dashboardMap.put(dashboardList.get(2), null);
-        dashboardMap.put(dashboardList.get(3), null);
-        dashboardMap.put(dashboardList.get(4), null);
+        dashboardMap.put(dashboardList.get(0), generateStudentList());
+        dashboardMap.put(dashboardList.get(1), new ArrayList<String>());
+        dashboardMap.put(dashboardList.get(2), new ArrayList<String>());
+        dashboardMap.put(dashboardList.get(3), new ArrayList<String>());
+        dashboardMap.put(dashboardList.get(4), new ArrayList<String>());
     }
 
-    private ArrayList<String> generateStudentNameList() {
+    private ArrayList<String> generateStudentList() {
         ArrayList<String> studentsNames = new ArrayList<String>();
         ArrayList<StudentModel> loggedInStudentsDetails = Utils.getLoggedInUserStudents();
         for (StudentModel student : loggedInStudentsDetails) {
