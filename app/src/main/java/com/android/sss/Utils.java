@@ -27,6 +27,7 @@ public class Utils {
     public static final String DASHBOARD_LIST_CHANGEPASSWORD = "Change Password";
     public static final String DASHBOARD_LIST_LOGOUT = "Logout";
     public static final String DASHBOARD_LIST_REPORTBUG = "Report Bug";
+    public static final String PARAM_SELECTED_STUDENT = "Student Selected";
 
     public static final String getGcmDeviceRegistrationUrl(String loginId, String password, String gcmId) {
         return "http://172.16.1.34/RegisterGcmId.php?LoginId=" + loginId + "&Password=" + password + "&GCMID=" + gcmId;

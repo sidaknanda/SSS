@@ -51,8 +51,12 @@ public class DashboardActivity extends AppCompatActivity {
         dashboardItems = (ExpandableListView) findViewById(R.id.expandableListViewDashboard);
 
         setSupportActionBar(toolbar);
+        Bundle bundle = new Bundle();
+        // setting first student to fragment
+        bundle.putParcelable(Utils.PARAM_SELECTED_STUDENT, Utils.getLoggedInUserStudents().get(0));
         FragmentManager transaction = getSupportFragmentManager();
         StudentFeedFragment studentFeedFragment = new StudentFeedFragment();
+        studentFeedFragment.setArguments(bundle);
         transaction.beginTransaction().replace(R.id.frameLayout, studentFeedFragment).commit();
 
         students = Utils.getLoggedInUserStudents();
@@ -87,9 +91,13 @@ public class DashboardActivity extends AppCompatActivity {
         dashboardItems.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Utils.PARAM_SELECTED_STUDENT, Utils.getLoggedInUserStudents().get(childPosition));
                 FragmentManager transaction = getSupportFragmentManager();
                 StudentFeedFragment studentFeedFragment = new StudentFeedFragment();
+                studentFeedFragment.setArguments(bundle);
                 transaction.beginTransaction().replace(R.id.frameLayout, studentFeedFragment).commit();
+                drawerDashboard.closeDrawers();
                 return false;
             }
         });
@@ -107,15 +115,19 @@ public class DashboardActivity extends AppCompatActivity {
             case 0:
                 break;
             case 1:
+                drawerDashboard.closeDrawers();
                 break;
             case 2:
+                drawerDashboard.closeDrawers();
                 break;
             case 3:
+                drawerDashboard.closeDrawers();
                 editor.putString(Utils.PREF_JSON_USER_DETAILS, null);
                 editor.commit();
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
             case 4:
+                drawerDashboard.closeDrawers();
                 break;
         }
     }

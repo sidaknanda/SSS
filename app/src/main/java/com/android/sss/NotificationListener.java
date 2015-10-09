@@ -32,7 +32,7 @@ public class NotificationListener extends GcmListenerService {
                 PendingIntent.FLAG_ONE_SHOT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.powered_by_google_dark)
+                .setSmallIcon(R.drawable.sss_logo)
                 .setContentTitle("GCM Message")
                 .setContentText(message)
                 .setAutoCancel(true)
