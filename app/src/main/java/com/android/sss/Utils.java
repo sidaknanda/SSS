@@ -28,13 +28,18 @@ public class Utils {
     public static final String DASHBOARD_LIST_LOGOUT = "Logout";
     public static final String DASHBOARD_LIST_REPORTBUG = "Report Bug";
     public static final String PARAM_SELECTED_STUDENT = "Student Selected";
+    public static final String[] STUDENT_STATUS = {"Bus Entry (Morning)", "Bus Exit (Morning)", "School Entry", "School Exit", "Bus Entry (Evening)", "Bus Exit (Evening)"};
 
     public static final String getGcmDeviceRegistrationUrl(String loginId, String password, String gcmId) {
-        return "http://172.16.1.34/RegisterGcmId.php?LoginId=" + loginId + "&Password=" + password + "&GCMID=" + gcmId;
+        return "http://172.16.1.224/RegisterGcmId.php?LoginId=" + loginId + "&Password=" + password + "&GCMID=" + gcmId;
     }
 
     public static final String getLoginUrl(String loginId, String password) {
-        return "http://172.16.1.34/GetStudentDetails.php?LoginId=" + loginId + "&Password=" + password;
+        return "http://172.16.1.224/GetStudentDetails.php?LoginId=" + loginId + "&Password=" + password;
+    }
+
+    public static final String getStudentUpdatesUrl(String Rfid) {
+        return "http://172.16.1.224/getUpdatesFromDB.php?RFID=" + Rfid;
     }
 
     public static final ProgressDialog getProgressDialog(Context context) {

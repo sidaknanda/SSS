@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         card_view:cardCornerRadius="3dp"
         card_view:cardElevation="4dp"
         card_view:cardUseCompatPadding="true">
@@ -40,6 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:lineSpacingExtra="1.5dp"
                 android:text="Student Details"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -73,12 +74,29 @@
                 android:layout_height="0.5dp"
                 android:background="@color/colorDivider" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerViewBrowseGroup"
+            <TextView
+                android:id="@+id/textViewNoData"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:padding="10dp" />
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="No Data Available"
+                android:textSize="20sp" />
+            <android.support.v4.widget.SwipeRefreshLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/swipeRefresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerViewStudentFeed"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" />
+
+            </android.support.v4.widget.SwipeRefreshLayout>
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
