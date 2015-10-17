@@ -3,6 +3,8 @@ package com.android.sss;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -34,6 +36,10 @@ public class Utils {
         return "http://172.16.1.224/RegisterGcmId.php?LoginId=" + loginId + "&Password=" + password + "&GCMID=" + gcmId;
     }
 
+    public static final String getGcmDeviceDeRegistrationUrl(String loginId, String password) {
+        return "http://172.16.1.224/DeRegisterGcmId.php?LoginId=" + loginId + "&Password=" + password;
+    }
+
     public static final String getLoginUrl(String loginId, String password) {
         return "http://172.16.1.224/GetStudentDetails.php?LoginId=" + loginId + "&Password=" + password;
     }
@@ -61,5 +67,32 @@ public class Utils {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        if (context == null) {
+            return false;
+        }
+
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI")) {
+                if (ni.isConnected()) {
+                    haveConnectedWifi = true;
+                }
+            }
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE")) {
+                if (ni.isConnected()) {
+                    haveConnectedMobile = true;
+                }
+            }
+        }
+
+        return haveConnectedWifi || haveConnectedMobile;
     }
 }

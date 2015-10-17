@@ -51,37 +51,45 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 loginId = etLoginId.getText().toString();
                 password = etPassword.getText().toString();
+                if (!loginId.equals("") && !password.equals("")) {
+                    if (Utils.isNetworkAvailable(getApplicationContext())) {
+                        dialog.show();
+                        RequestQueue queue = volleySingleton.getRequestQueue();
 
-                dialog.show();
+                        StringRequest loginRequest = new StringRequest(Utils.getLoginUrl(loginId, password), new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    userDetailsArray = new JSONArray(response);
 
-                RequestQueue queue = volleySingleton.getRequestQueue();
+                                    editor.putString(Utils.PREF_JSON_USER_DETAILS, userDetailsArray.toString());
+                                    editor.commit();
+                                    resisterGCM();
+                                    startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
+                                    dialog.dismiss();
+                                } catch (JSONException e) {
+                                    Toast.makeText(getApplicationContext(), "Wrong Credential(s)\nTry Again", Toast.LENGTH_SHORT).show();
+                                    e.printStackTrace();
+                                    dialog.dismiss();
+                                }
 
-                StringRequest loginRequest = new StringRequest(Utils.getLoginUrl(loginId, password), new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            userDetailsArray = new JSONArray(response);
-
-                            editor.putString(Utils.PREF_JSON_USER_DETAILS, userDetailsArray.toString());
-                            editor.commit();
-                            resisterGCM();
-                            startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
-                            dialog.dismiss();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            dialog.dismiss();
-                        }
-
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                error.printStackTrace();
+                                Toast.makeText(LoginActivity.this, "Internet Issue", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        });
+                        queue.add(loginRequest);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Internet Connectivity Issue !!!", Toast.LENGTH_SHORT).show();
                     }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        Toast.makeText(LoginActivity.this, "Internet Issue", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                    }
-                });
-                queue.add(loginRequest);
+                } else {
+                    Toast.makeText(getApplicationContext(), "All Field(s) Required !!!", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }

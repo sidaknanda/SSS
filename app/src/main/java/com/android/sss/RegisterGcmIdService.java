@@ -54,7 +54,7 @@ public class RegisterGcmIdService extends IntentService {
             sendRegistrationToServer(token);
             // [END register_for_gcm]
         } catch (Exception e) {
-            Toast.makeText(context, "Failed to complete token refresh", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Registration Issue\nPlease Login again", Toast.LENGTH_LONG).show();
             Log.d("SN", "Failed to complete token refresh", e);
         }
     }

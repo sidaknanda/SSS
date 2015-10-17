@@ -3,13 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusableInTouchMode="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="4">
 
         <include
             android:id="@+id/toolbar"
@@ -20,12 +22,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_weight="2"
             android:src="@drawable/sss_logo" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/loginIdWrapper"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5">
 
             <EditText
                 android:id="@+id/et_loginId"
@@ -38,7 +42,8 @@
         <android.support.design.widget.TextInputLayout
             android:id="@+id/passwordWrapper"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5">
 
             <EditText
                 android:id="@+id/et_password"
@@ -54,6 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
             android:src="@drawable/fab_ic_next"
             app:backgroundTint="@color/colorPrimary"
             app:elevation="6dp"

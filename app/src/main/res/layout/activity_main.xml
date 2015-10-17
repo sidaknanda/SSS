@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <android.support.v4.view.ViewPager
@@ -15,8 +15,9 @@
         android:id="@+id/circlePageIndicatorMain"
         android:layout_width="fill_parent"
         android:layout_height="30dp"
-        android:background="@color/colorPrimary"
-        android:padding="3dp" />
+        android:padding="3dp"
+        app:fillColor="@color/colorPrimary"
+        app:strokeColor="@color/colorPrimary" />
 
     <Button
         android:id="@+id/buttonGetStartedMain"
@@ -26,5 +27,6 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/buttonshape"
+        android:textColor="@color/colorPrimary"
         android:text="@string/btn_get_started" />
 </LinearLayout>

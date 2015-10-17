@@ -62,41 +62,51 @@ public class StudentFeedFragment extends Fragment {
     }
 
     private void getStudentFeed() {
-        dialog.show();
-        RequestQueue requestQueue = volleySingleton.getRequestQueue();
-        StringRequest request = new StringRequest(Utils.getStudentUpdatesUrl(selectedStudent.getRFID()), new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONArray feed = new JSONArray(response);
-                    studentFeeds = new Gson().fromJson(feed.toString(), new TypeToken<ArrayList<StudentFeedModel>>() {
-                    }.getType());
-                    setStudentFeedToList();
-                    dialog.dismiss();
-                } catch (Exception e) {
+        if (Utils.isNetworkAvailable(getActivity())) {
+            dialog.show();
+            RequestQueue requestQueue = volleySingleton.getRequestQueue();
+            StringRequest request = new StringRequest(Utils.getStudentUpdatesUrl(selectedStudent.getRFID()), new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONArray feed = new JSONArray(response);
+                        studentFeeds = new Gson().fromJson(feed.toString(), new TypeToken<ArrayList<StudentFeedModel>>() {
+                        }.getType());
+                        setStudentFeedToList();
+                        dialog.dismiss();
+                    } catch (Exception e) {
+                        tv_noData.setVisibility(View.VISIBLE);
+                        e.printStackTrace();
+                        dialog.dismiss();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                    Toast.makeText(getActivity(), "Issue", Toast.LENGTH_SHORT).show();
                     tv_noData.setVisibility(View.VISIBLE);
-                    e.printStackTrace();
                     dialog.dismiss();
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                Toast.makeText(getActivity(), "Issue", Toast.LENGTH_SHORT).show();
-                tv_noData.setVisibility(View.VISIBLE);
-                dialog.dismiss();
-            }
-        });
-        requestQueue.add(request);
+            });
+            requestQueue.add(request);
+            dismissSwipeToRefresh();
+        } else {
+            Toast.makeText(getActivity(), "Internet Connectivity Issue !!!", Toast.LENGTH_SHORT).show();
+            dismissSwipeToRefresh();
+        }
+
+    }
+
+    private void dismissSwipeToRefresh() {
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     private void setStudentFeedToList() {
         studentFeedAdapter = new StudentFeedAdapter(getActivity(), studentFeeds);
         rv_feedList.setAdapter(studentFeedAdapter);
-        if(swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
     }
 
     private void setupRecyclerView() {

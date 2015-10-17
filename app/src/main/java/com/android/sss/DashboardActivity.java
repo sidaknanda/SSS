@@ -1,6 +1,7 @@
 package com.android.sss;
 
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +38,8 @@ public class DashboardActivity extends AppCompatActivity {
     private HashMap<String, List<String>> dashboardMap;
     private ArrayList<String> dashboardList;
     private DashboardListAdapter dashboardListAdapter;
-    private ArrayList<StudentModel> students;
+    private ArrayList<StudentModel> loggedInStudents;
+    private VolleySingleton volleySingleton = VolleySingleton.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +51,8 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void initSetup() {
+        loggedInStudents = Utils.getLoggedInUserStudents();
+
         preferences = getSharedPreferences(Utils.PREF_SSS_PREFERENCES, Context.MODE_PRIVATE);
         editor = preferences.edit();
 
@@ -53,13 +63,11 @@ public class DashboardActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Bundle bundle = new Bundle();
         // setting first student to fragment
-        bundle.putParcelable(Utils.PARAM_SELECTED_STUDENT, Utils.getLoggedInUserStudents().get(0));
+        bundle.putParcelable(Utils.PARAM_SELECTED_STUDENT, loggedInStudents.get(0));
         FragmentManager transaction = getSupportFragmentManager();
         StudentFeedFragment studentFeedFragment = new StudentFeedFragment();
         studentFeedFragment.setArguments(bundle);
         transaction.beginTransaction().replace(R.id.frameLayout, studentFeedFragment).commit();
-
-        students = Utils.getLoggedInUserStudents();
 
         setupDrawer();
     }
@@ -92,7 +100,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 Bundle bundle = new Bundle();
-                bundle.putParcelable(Utils.PARAM_SELECTED_STUDENT, Utils.getLoggedInUserStudents().get(childPosition));
+                bundle.putParcelable(Utils.PARAM_SELECTED_STUDENT, loggedInStudents.get(childPosition));
                 FragmentManager transaction = getSupportFragmentManager();
                 StudentFeedFragment studentFeedFragment = new StudentFeedFragment();
                 studentFeedFragment.setArguments(bundle);
@@ -122,13 +130,38 @@ public class DashboardActivity extends AppCompatActivity {
                 break;
             case 3:
                 drawerDashboard.closeDrawers();
-                editor.putString(Utils.PREF_JSON_USER_DETAILS, null);
-                editor.commit();
-                startActivity(new Intent(this, LoginActivity.class));
+                logout();
                 break;
             case 4:
                 drawerDashboard.closeDrawers();
                 break;
+        }
+    }
+
+    private void logout() {
+        final ProgressDialog dialog = Utils.getProgressDialog(this);
+        if (Utils.isNetworkAvailable(this)) {
+            dialog.show();
+            RequestQueue queue = volleySingleton.getRequestQueue();
+            StringRequest request = new StringRequest(Utils.getGcmDeviceDeRegistrationUrl(loggedInStudents.get(0).getLoginId(), loggedInStudents.get(0).getPassword()), new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    editor.putString(Utils.PREF_JSON_USER_DETAILS, null);
+                    editor.commit();
+                    startActivity(new Intent(SSSApplication.getAppContext(), LoginActivity.class));
+                    dialog.dismiss();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(SSSApplication.getAppContext(), "Issue !!!", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+            });
+            queue.add(request);
+        } else {
+            Toast.makeText(this, "Internet needed to Logout !!!", Toast.LENGTH_SHORT).show();
+            return;
         }
     }
 
@@ -152,9 +185,8 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private ArrayList<String> generateStudentList() {
-        ArrayList<String> studentsNames = new ArrayList<String>();
-        ArrayList<StudentModel> loggedInStudentsDetails = Utils.getLoggedInUserStudents();
-        for (StudentModel student : loggedInStudentsDetails) {
+        ArrayList<String> studentsNames = new ArrayList();
+        for (StudentModel student : loggedInStudents) {
             studentsNames.add(student.getStudentName());
         }
         return studentsNames;
