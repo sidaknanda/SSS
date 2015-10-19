@@ -32,7 +32,7 @@ public class StudentFeedAdapter extends RecyclerView.Adapter<StudentFeedAdapter.
 
     @Override
     public void onBindViewHolder(StudentFeedViewHolder holder, int position) {
-        holder.textViewStatus.setText(Utils.STUDENT_STATUS[studentFeeds.get(position).getFlag()-1]);
+        holder.textViewStatus.setText(Utils.STUDENT_STATUS[studentFeeds.get(position).getFlag() - 1]);
         holder.textViewDate.setText(studentFeeds.get(position).getDate());
         holder.textViewTime.setText(studentFeeds.get(position).getTime());
     }

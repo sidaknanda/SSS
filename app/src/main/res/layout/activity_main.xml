@@ -27,6 +27,6 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/buttonshape"
-        android:textColor="@color/colorPrimary"
-        android:text="@string/btn_get_started" />
+        android:text="@string/btn_get_started"
+        android:textColor="@color/colorPrimary" />
 </LinearLayout>

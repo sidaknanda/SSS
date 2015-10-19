@@ -106,6 +106,7 @@ public class DashboardActivity extends AppCompatActivity {
                 studentFeedFragment.setArguments(bundle);
                 transaction.beginTransaction().replace(R.id.frameLayout, studentFeedFragment).commit();
                 drawerDashboard.closeDrawers();
+                dashboardItems.collapseGroup(groupPosition);
                 return false;
             }
         });
@@ -126,6 +127,7 @@ public class DashboardActivity extends AppCompatActivity {
                 drawerDashboard.closeDrawers();
                 break;
             case 2:
+                changePassword();
                 drawerDashboard.closeDrawers();
                 break;
             case 3:
@@ -136,6 +138,12 @@ public class DashboardActivity extends AppCompatActivity {
                 drawerDashboard.closeDrawers();
                 break;
         }
+    }
+
+    private void changePassword() {
+        FragmentManager transaction = getSupportFragmentManager();
+        ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment();
+        transaction.beginTransaction().replace(R.id.frameLayout, changePasswordFragment).commit();
     }
 
     private void logout() {
