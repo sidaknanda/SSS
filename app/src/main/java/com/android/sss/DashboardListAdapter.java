@@ -17,7 +17,8 @@ public class DashboardListAdapter extends BaseExpandableListAdapter {
     private List<String> list;
     private HashMap<String, List<String>> map;
     private Context context;
-    private int[] icons = {R.drawable.students, R.drawable.contactschool, R.drawable.changepassword, R.drawable.logout, R.drawable.reportbug};
+    private int[] iconsMain = {R.drawable.students, R.drawable.contactschool, R.drawable.changepassword, R.drawable.reportbug, R.drawable.logout};
+    private int[] iconsContactSchool = {R.drawable.call, R.drawable.message, R.drawable.email};
 
     public DashboardListAdapter(Context context, List<String> list, HashMap<String, List<String>> map) {
         this.context = context;
@@ -45,7 +46,11 @@ public class DashboardListAdapter extends BaseExpandableListAdapter {
         TextView child = (TextView) convertView.findViewById(R.id.textViewDashboardChild);
         child.setText(temp);
         ImageView childIcon = (ImageView) convertView.findViewById(R.id.imageViewChildIcon);
-        childIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.student));
+        if (groupPosition == Utils.UTIL_ZERO) {
+            childIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.student));
+        } else {
+            childIcon.setImageDrawable(ContextCompat.getDrawable(context, iconsContactSchool[childPosition]));
+        }
         return convertView;
     }
 
@@ -56,7 +61,7 @@ public class DashboardListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getGroup(int groupPosition) {
-        return (String) list.get(groupPosition);
+        return list.get(groupPosition);
     }
 
     @Override
@@ -79,7 +84,7 @@ public class DashboardListAdapter extends BaseExpandableListAdapter {
         TextView parent_tv = (TextView) convertView.findViewById(R.id.textViewDashboardParent);
         parent_tv.setText(temp);
         ImageView parentIcon = (ImageView) convertView.findViewById(R.id.imageViewParentIcon);
-        parentIcon.setImageDrawable(ContextCompat.getDrawable(context, icons[groupPosition]));
+        parentIcon.setImageDrawable(ContextCompat.getDrawable(context, iconsMain[groupPosition]));
         return convertView;
     }
 

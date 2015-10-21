@@ -21,9 +21,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.util.ArrayList;
 
 /**
@@ -68,12 +65,18 @@ public class ChangePasswordFragment extends Fragment {
                 confirmChangePassword = et_passwordNewConfirm.getText().toString();
                 if (!changePassword.equals("") && !confirmChangePassword.equals("")) {
                     if (changePassword.equals(confirmChangePassword)) {
-                        update();
+                        if (!Utils.getLoggedInUserStudents().get(Utils.UTIL_ZERO).getPassword().equals(changePassword)) {
+                            update();
+                        } else {
+                            Toast.makeText(getActivity(), getString(R.string.entered_password_updated), Toast.LENGTH_LONG).show();
+                            et_passwordNew.setText("");
+                            et_passwordNewConfirm.setText("");
+                        }
                     } else {
-                        Toast.makeText(getActivity(), "Passwords do not Match !!!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getString(R.string.passwords_dont_match), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getActivity(), "All Field(s) Required !!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.all_fields_required), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -84,15 +87,15 @@ public class ChangePasswordFragment extends Fragment {
             dialog.show();
             RequestQueue queue = volleySingleton.getRequestQueue();
             //TODO
-            StringRequest loginRequest = new StringRequest(Utils.getChangePasswordUrl(Utils.getLoggedInUserStudents().get(0).getLoginId(), changePassword), new Response.Listener<String>() {
+            StringRequest loginRequest = new StringRequest(Utils.getChangePasswordUrl(Utils.getLoggedInUserStudents().get(Utils.UTIL_ZERO).getLoginId(), changePassword), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     if (response.equals("1")) {
                         updateDevicePreferences();
-                        Toast.makeText(getActivity(), "Password Successfully Updated !!!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getString(R.string.password_successfully_updated), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getActivity(), DashboardActivity.class));
                     } else {
-                        Toast.makeText(getActivity(), "Server Issue\nTry again after some time", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getString(R.string.server_issue), Toast.LENGTH_SHORT).show();
                     }
                     dialog.dismiss();
                 }
@@ -100,13 +103,13 @@ public class ChangePasswordFragment extends Fragment {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     error.printStackTrace();
-                    Toast.makeText(getActivity(), "Server Issue\nTry again after some time", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.server_issue), Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             });
             queue.add(loginRequest);
         } else {
-            Toast.makeText(getActivity(), "Internet Connectivity Issue !!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.internet_issue), Toast.LENGTH_SHORT).show();
         }
     }
 

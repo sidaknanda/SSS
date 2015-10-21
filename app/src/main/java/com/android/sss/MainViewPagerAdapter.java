@@ -35,13 +35,10 @@ public class MainViewPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View view = layoutInflater.inflate(R.layout.main_viewpager_item_layout, container, false);
-
         ImageView imageView = (ImageView) view.findViewById(R.id.imageViewMainViewPager);
         imageView.setImageResource(resources[position]);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
         container.addView(view);
-
         return view;
     }
 

@@ -20,6 +20,8 @@ import java.util.ArrayList;
  */
 public class Utils {
 
+    public static final String TAG = "SSS";
+    public static final String GCM_MESSAGE_TAG = "SSS";
     public static final String PREF_SSS_PREFERENCES = "SSS Preferences";
     public static final String PREF_JSON_USER_DETAILS = "User Details";
     public static final String LOGINID = "LoginId";
@@ -31,6 +33,11 @@ public class Utils {
     public static final String DASHBOARD_LIST_REPORTBUG = "Report Bug";
     public static final String PARAM_SELECTED_STUDENT = "Student Selected";
     public static final String[] STUDENT_STATUS = {"Bus Entry (Morning)", "Bus Exit (Morning)", "School Entry", "School Exit", "Bus Entry (Evening)", "Bus Exit (Evening)"};
+    public static final int UTIL_ZERO = 0;
+    public static final int UTIL_ONE = 1;
+    public static final int UTIL_TWO = 2;
+    public static final int UTIL_THREE = 3;
+    public static final int UTIL_FOUR = 4;
 
     public static final String getGcmDeviceRegistrationUrl(String loginId, String password, String gcmId) {
         return "http://172.16.2.201/RegisterGcmId.php?LoginId=" + loginId + "&Password=" + password + "&GCMID=" + gcmId;

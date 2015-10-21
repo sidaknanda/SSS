@@ -17,8 +17,8 @@ import java.util.Random;
 public class NotificationListener extends GcmListenerService {
     @Override
     public void onMessageReceived(String from, Bundle data) {
-        String message = data.getString("text_message");
-        Log.i("SN", message);
+        String message = data.getString(Utils.GCM_MESSAGE_TAG);
+        Log.i(Utils.TAG, message);
         if (message != null) {
             sendNotification(message);
         }
@@ -39,7 +39,7 @@ public class NotificationListener extends GcmListenerService {
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager =
-                (NotificationManager) getSystemService(SSSApplication.getAppContext().NOTIFICATION_SERVICE);
+                (NotificationManager) getSystemService(SSSApplication.NOTIFICATION_SERVICE);
 
         notificationManager.notify(notification, notificationBuilder.build());
     }

@@ -47,15 +47,15 @@ public class RegisterGcmIdService extends IntentService {
             // are local.
             // [START get_token]
             InstanceID instanceID = InstanceID.getInstance(this);
-            String token = instanceID.getToken("865134249857",
+            String token = instanceID.getToken(getString(R.string.GCM_Project_Number),
                     GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
             // [END get_token]
-            Log.i("SN", "GCM Registration Token: " + token);
+            Log.i(Utils.TAG, getString(R.string.gcm_token) + token);
             sendRegistrationToServer(token);
             // [END register_for_gcm]
         } catch (Exception e) {
-            Toast.makeText(context, "Registration Issue\nPlease Login again", Toast.LENGTH_LONG).show();
-            Log.d("SN", "Failed to complete token refresh", e);
+            Toast.makeText(context, getString(R.string.gcm_registration_issue), Toast.LENGTH_LONG).show();
+            Log.d(Utils.TAG, getString(R.string.failed_gcm_token_refresh), e);
         }
     }
 
@@ -69,7 +69,7 @@ public class RegisterGcmIdService extends IntentService {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(SSSApplication.getAppContext(), "Error: " + error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(SSSApplication.getAppContext(), getString(R.string.device_registration_error) + error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                 }
             });
             queue.add(request);
@@ -81,7 +81,7 @@ public class RegisterGcmIdService extends IntentService {
     private void initSetup() {
         try {
             preferences = context.getSharedPreferences(Utils.PREF_SSS_PREFERENCES, Context.MODE_PRIVATE);
-            userDetailsJson = new JSONArray(preferences.getString(Utils.PREF_JSON_USER_DETAILS, null)).getJSONObject(0);
+            userDetailsJson = new JSONArray(preferences.getString(Utils.PREF_JSON_USER_DETAILS, null)).getJSONObject(Utils.UTIL_ZERO);
         } catch (JSONException e) {
             e.printStackTrace();
         }

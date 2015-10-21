@@ -84,7 +84,7 @@ public class StudentFeedFragment extends Fragment {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     error.printStackTrace();
-                    Toast.makeText(getActivity(), "Issue", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.server_issue), Toast.LENGTH_SHORT).show();
                     tv_noData.setVisibility(View.VISIBLE);
                     dialog.dismiss();
                 }
@@ -92,7 +92,7 @@ public class StudentFeedFragment extends Fragment {
             requestQueue.add(request);
             dismissSwipeToRefresh();
         } else {
-            Toast.makeText(getActivity(), "Internet Connectivity Issue !!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.internet_issue), Toast.LENGTH_SHORT).show();
             dismissSwipeToRefresh();
         }
 

@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (!loginId.equals("") && !password.equals("")) {
                     login();
                 } else {
-                    Toast.makeText(getApplicationContext(), "All Field(s) Required !!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.all_fields_required), Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
                         dialog.dismiss();
                     } catch (JSONException e) {
-                        Toast.makeText(getApplicationContext(), "Wrong Credential(s)\nTry Again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                         dialog.dismiss();
                     }
@@ -88,13 +88,13 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     error.printStackTrace();
-                    Toast.makeText(LoginActivity.this, "Server Issue\nTry again after some time", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, getString(R.string.server_issue), Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             });
             queue.add(loginRequest);
         } else {
-            Toast.makeText(getApplicationContext(), "Internet Connectivity Issue !!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.internet_issue), Toast.LENGTH_SHORT).show();
         }
     }
 

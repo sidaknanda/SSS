@@ -11,4 +11,19 @@
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
     <string name="not_set">NOT SET</string>
+    <string name="call_school">Call</string>
+    <string name="message_school">Message</string>
+    <string name="email_school">E-Mail</string>
+    <string name="entered_password_updated">"Entered Password already updated"</string>
+    <string name="passwords_dont_match">Passwords do not Match !!!</string>
+    <string name="all_fields_required">All Field(s) Required !!!</string>
+    <string name="password_successfully_updated">Password Successfully Updated !!!</string>
+    <string name="server_issue">Server Issue\nTry again after some time</string>
+    <string name="internet_issue">"Internet Connectivity Issue !!!"</string>
+    <string name="wrong_credentials">Wrong Credential(s)\nTry Again</string>
+    <string name="device_registration_error">Device Registration Error</string>
+    <string name="GCM_Project_Number">865134249857</string>
+    <string name="gcm_token">GCM Registration Token: </string>
+    <string name="gcm_registration_issue">Registration Issue\nPlease Login again</string>
+    <string name="failed_gcm_token_refresh">Failed to complete token refresh</string>
 </resources>
