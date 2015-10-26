@@ -65,7 +65,7 @@ public class ChangePasswordFragment extends Fragment {
                 confirmChangePassword = et_passwordNewConfirm.getText().toString();
                 if (!changePassword.equals("") && !confirmChangePassword.equals("")) {
                     if (changePassword.equals(confirmChangePassword)) {
-                        if (!Utils.getLoggedInUserStudents().get(Utils.UTIL_ZERO).getPassword().equals(changePassword)) {
+                        if (!Utils.getLoggedInUserStudents().get(Utils.Numbers.ZERO.ordinal()).getPassword().equals(changePassword)) {
                             update();
                         } else {
                             Toast.makeText(getActivity(), getString(R.string.entered_password_updated), Toast.LENGTH_LONG).show();
@@ -87,13 +87,14 @@ public class ChangePasswordFragment extends Fragment {
             dialog.show();
             RequestQueue queue = volleySingleton.getRequestQueue();
             //TODO
-            StringRequest loginRequest = new StringRequest(Utils.getChangePasswordUrl(Utils.getLoggedInUserStudents().get(Utils.UTIL_ZERO).getLoginId(), changePassword), new Response.Listener<String>() {
+            StringRequest loginRequest = new StringRequest(Utils.getChangePasswordUrl(Utils.getLoggedInUserStudents().get(Utils.Numbers.ZERO.ordinal()).getLoginId(), changePassword), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     if (response.equals("1")) {
                         updateDevicePreferences();
                         Toast.makeText(getActivity(), getString(R.string.password_successfully_updated), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getActivity(), DashboardActivity.class));
+                        getActivity().overridePendingTransition(R.anim.right_in, R.anim.left_out);
                     } else {
                         Toast.makeText(getActivity(), getString(R.string.server_issue), Toast.LENGTH_SHORT).show();
                     }

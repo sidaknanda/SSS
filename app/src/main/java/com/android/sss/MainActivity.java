@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences(Utils.PREF_SSS_PREFERENCES, Context.MODE_PRIVATE);
         if (preferences.getString(Utils.PREF_JSON_USER_DETAILS, null) != null) {
             startActivity(new Intent(this, DashboardActivity.class));
+            overridePendingTransition(R.anim.right_in, R.anim.left_out);
         }
     }
 
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
             }
         });
     }
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         startMain.addCategory(Intent.CATEGORY_HOME);
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(startMain);
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 
     @Override

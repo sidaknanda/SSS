@@ -46,7 +46,7 @@ public class DashboardListAdapter extends BaseExpandableListAdapter {
         TextView child = (TextView) convertView.findViewById(R.id.textViewDashboardChild);
         child.setText(temp);
         ImageView childIcon = (ImageView) convertView.findViewById(R.id.imageViewChildIcon);
-        if (groupPosition == Utils.UTIL_ZERO) {
+        if (groupPosition == Utils.Numbers.ZERO.ordinal()) {
             childIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.student));
         } else {
             childIcon.setImageDrawable(ContextCompat.getDrawable(context, iconsContactSchool[childPosition]));

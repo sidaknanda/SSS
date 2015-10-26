@@ -33,30 +33,27 @@ public class Utils {
     public static final String DASHBOARD_LIST_REPORTBUG = "Report Bug";
     public static final String PARAM_SELECTED_STUDENT = "Student Selected";
     public static final String[] STUDENT_STATUS = {"Bus Entry (Morning)", "Bus Exit (Morning)", "School Entry", "School Exit", "Bus Entry (Evening)", "Bus Exit (Evening)"};
-    public static final int UTIL_ZERO = 0;
-    public static final int UTIL_ONE = 1;
-    public static final int UTIL_TWO = 2;
-    public static final int UTIL_THREE = 3;
-    public static final int UTIL_FOUR = 4;
+
+    public enum Numbers {ZERO, ONE, TWO, THREE, FOUR}
 
     public static final String getGcmDeviceRegistrationUrl(String loginId, String password, String gcmId) {
-        return "http://172.16.2.201/RegisterGcmId.php?LoginId=" + loginId + "&Password=" + password + "&GCMID=" + gcmId;
+        return "http://172.16.1.74/RegisterGcmId.php?LoginId=" + loginId + "&Password=" + password + "&GCMID=" + gcmId;
     }
 
     public static final String getGcmDeviceDeRegistrationUrl(String loginId, String password) {
-        return "http://172.16.2.201/DeRegisterGcmId.php?LoginId=" + loginId + "&Password=" + password;
+        return "http://172.16.1.74/DeRegisterGcmId.php?LoginId=" + loginId + "&Password=" + password;
     }
 
     public static final String getLoginUrl(String loginId, String password) {
-        return "http://172.16.2.201/GetStudentDetails.php?LoginId=" + loginId + "&Password=" + password;
+        return "http://172.16.1.74/GetStudentDetails.php?LoginId=" + loginId + "&Password=" + password;
     }
 
     static final String getStudentUpdatesUrl(String Rfid) {
-        return "http://172.16.2.201/getUpdatesFromDB.php?RFID=" + Rfid;
+        return "http://172.16.1.74/getUpdatesFromDB.php?RFID=" + Rfid;
     }
 
     static final String getChangePasswordUrl(String loginId, String password) {
-        return "http://172.16.2.201/ChangePassword.php?LoginId=" + loginId + "&Password=" + password;
+        return "http://172.16.1.74/ChangePassword.php?LoginId=" + loginId + "&Password=" + password;
     }
 
     public static final ProgressDialog getProgressDialog(Context context) {

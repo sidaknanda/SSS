@@ -23,6 +23,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
             }
         }, SPLASH_TIME_OUT);
     }

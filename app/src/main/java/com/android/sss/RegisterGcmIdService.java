@@ -81,7 +81,7 @@ public class RegisterGcmIdService extends IntentService {
     private void initSetup() {
         try {
             preferences = context.getSharedPreferences(Utils.PREF_SSS_PREFERENCES, Context.MODE_PRIVATE);
-            userDetailsJson = new JSONArray(preferences.getString(Utils.PREF_JSON_USER_DETAILS, null)).getJSONObject(Utils.UTIL_ZERO);
+            userDetailsJson = new JSONArray(preferences.getString(Utils.PREF_JSON_USER_DETAILS, null)).getJSONObject(Utils.Numbers.ZERO.ordinal());
         } catch (JSONException e) {
             e.printStackTrace();
         }

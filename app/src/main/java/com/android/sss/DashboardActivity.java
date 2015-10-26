@@ -63,7 +63,7 @@ public class DashboardActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Bundle bundle = new Bundle();
         // setting first student to fragment
-        bundle.putParcelable(Utils.PARAM_SELECTED_STUDENT, loggedInStudents.get(Utils.UTIL_ZERO));
+        bundle.putParcelable(Utils.PARAM_SELECTED_STUDENT, loggedInStudents.get(Utils.Numbers.ZERO.ordinal()));
         FragmentManager transaction = getSupportFragmentManager();
         StudentFeedFragment studentFeedFragment = new StudentFeedFragment();
         studentFeedFragment.setArguments(bundle);
@@ -76,14 +76,14 @@ public class DashboardActivity extends AppCompatActivity {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerDashboard, toolbar, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle("SSS");
+                getSupportActionBar().setTitle(getString(R.string.sss));
                 invalidateOptionsMenu();
                 syncState();
             }
 
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("Dashboard");
+                getSupportActionBar().setTitle(getString(R.string.dashboard));
                 invalidateOptionsMenu();
                 syncState();
             }
@@ -99,7 +99,7 @@ public class DashboardActivity extends AppCompatActivity {
         dashboardItems.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                if (groupPosition == Utils.UTIL_ZERO) {
+                if (groupPosition == Utils.Numbers.ZERO.ordinal()) {
                     Bundle bundle = new Bundle();
                     bundle.putParcelable(Utils.PARAM_SELECTED_STUDENT, loggedInStudents.get(childPosition));
                     FragmentManager transaction = getSupportFragmentManager();
@@ -107,11 +107,11 @@ public class DashboardActivity extends AppCompatActivity {
                     studentFeedFragment.setArguments(bundle);
                     transaction.beginTransaction().replace(R.id.frameLayout, studentFeedFragment).commit();
                 } else {
-                    if (childPosition == Utils.UTIL_ZERO) {
+                    if (childPosition == Utils.Numbers.ZERO.ordinal()) {
                         callSchool();
-                    } else if (childPosition == Utils.UTIL_ONE) {
+                    } else if (childPosition == Utils.Numbers.ONE.ordinal()) {
                         messageSchool();
-                    } else if (childPosition == Utils.UTIL_TWO) {
+                    } else if (childPosition == Utils.Numbers.TWO.ordinal()) {
                         mailSchool();
                     }
                 }
@@ -138,7 +138,7 @@ public class DashboardActivity extends AppCompatActivity {
             startActivity(emailIntent);
         } catch (Exception ex) {
             ex.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Error !!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.contact_school_error), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -148,7 +148,7 @@ public class DashboardActivity extends AppCompatActivity {
             startActivity(smsIntent);
         } catch (Exception ex) {
             ex.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Error !!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.contact_school_error), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -159,7 +159,7 @@ public class DashboardActivity extends AppCompatActivity {
             startActivity(callIntent);
         } catch (Exception ex) {
             ex.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Error !!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.contact_school_error), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -175,13 +175,19 @@ public class DashboardActivity extends AppCompatActivity {
                 break;
             case 3:
                 drawerDashboard.closeDrawers();
-
+                reportBug();
                 break;
             case 4:
                 drawerDashboard.closeDrawers();
                 logout();
                 break;
         }
+    }
+
+    private void reportBug() {
+        FragmentManager transaction = getSupportFragmentManager();
+        ReportBugFragment reportBugFragment = new ReportBugFragment();
+        transaction.beginTransaction().replace(R.id.frameLayout, reportBugFragment).commit();
     }
 
     private void changePassword() {
@@ -195,25 +201,25 @@ public class DashboardActivity extends AppCompatActivity {
         if (Utils.isNetworkAvailable(this)) {
             dialog.show();
             RequestQueue queue = volleySingleton.getRequestQueue();
-            StringRequest request = new StringRequest(Utils.getGcmDeviceDeRegistrationUrl(loggedInStudents.get(Utils.UTIL_ZERO).getLoginId(), loggedInStudents.get(Utils.UTIL_ZERO).getPassword()), new Response.Listener<String>() {
+            StringRequest request = new StringRequest(Utils.getGcmDeviceDeRegistrationUrl(loggedInStudents.get(Utils.Numbers.ZERO.ordinal()).getLoginId(), loggedInStudents.get(Utils.Numbers.ZERO.ordinal()).getPassword()), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     editor.putString(Utils.PREF_JSON_USER_DETAILS, null);
                     editor.commit();
                     startActivity(new Intent(SSSApplication.getAppContext(), LoginActivity.class));
+                    overridePendingTransition(R.anim.left_in, R.anim.right_out);
                     dialog.dismiss();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(SSSApplication.getAppContext(), "Server Issue\n" +
-                            "Try again after some time", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SSSApplication.getAppContext(), getString(R.string.server_issue), Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             });
             queue.add(request);
         } else {
-            Toast.makeText(this, "Internet needed to Logout !!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.internet_issue), Toast.LENGTH_SHORT).show();
             return;
         }
     }
@@ -230,11 +236,11 @@ public class DashboardActivity extends AppCompatActivity {
         dashboardList.add(Utils.DASHBOARD_LIST_REPORTBUG);
         dashboardList.add(Utils.DASHBOARD_LIST_LOGOUT);
 
-        dashboardMap.put(dashboardList.get(Utils.UTIL_ZERO), generateStudentList());
-        dashboardMap.put(dashboardList.get(Utils.UTIL_ONE), generateContactSchoolList());
-        dashboardMap.put(dashboardList.get(Utils.UTIL_TWO), new ArrayList<String>());
-        dashboardMap.put(dashboardList.get(Utils.UTIL_THREE), new ArrayList<String>());
-        dashboardMap.put(dashboardList.get(Utils.UTIL_FOUR), new ArrayList<String>());
+        dashboardMap.put(dashboardList.get(Utils.Numbers.ZERO.ordinal()), generateStudentList());
+        dashboardMap.put(dashboardList.get(Utils.Numbers.ONE.ordinal()), generateContactSchoolList());
+        dashboardMap.put(dashboardList.get(Utils.Numbers.TWO.ordinal()), new ArrayList<String>());
+        dashboardMap.put(dashboardList.get(Utils.Numbers.THREE.ordinal()), new ArrayList<String>());
+        dashboardMap.put(dashboardList.get(Utils.Numbers.FOUR.ordinal()), new ArrayList<String>());
     }
 
     private ArrayList<String> generateContactSchoolList() {
@@ -259,5 +265,6 @@ public class DashboardActivity extends AppCompatActivity {
         startMain.addCategory(Intent.CATEGORY_HOME);
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(startMain);
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 }
