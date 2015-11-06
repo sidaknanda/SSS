@@ -17,7 +17,7 @@
     <string name="passwords_dont_match">Passwords do not Match</string>
     <string name="all_fields_required">All Field(s) Required</string>
     <string name="password_successfully_updated">Password Successfully Updated</string>
-    <string name="server_issue">Server Issue\nTry again after some time</string>
+    <string name="server_issue">Server taking too long to respond\nTry again after some time</string>
     <string name="internet_issue">Internet Connectivity Issue</string>
     <string name="wrong_credentials">Wrong Credential(s)\nTry Again</string>
     <string name="device_registration_error">Device Registration Error</string>
@@ -29,4 +29,5 @@
     <string name="dashboard">Dashboard</string>
     <string name="contact_school_error">Error in Contacting School</string>
     <string name="thanks_feedback_message">Thanks for sharing your valuable Feedback</string>
+    <string name="get_google_play_services">Google Play Services Error\nUpdate or Install it to receive real time notifications</string>
 </resources>

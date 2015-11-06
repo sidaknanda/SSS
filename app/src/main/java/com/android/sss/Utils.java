@@ -37,28 +37,28 @@ public class Utils {
     public enum Numbers {ZERO, ONE, TWO, THREE, FOUR}
 
     public static final String getGcmDeviceRegistrationUrl(String loginId, String password, String gcmId) {
-        return "http://172.16.1.74/RegisterGcmId.php?LoginId=" + loginId + "&Password=" + password + "&GCMID=" + gcmId;
+        return "http://192.168.1.9/SSS/RegisterGcmId.php?LoginId=" + loginId + "&Password=" + password + "&GCMID=" + gcmId;
     }
 
     public static final String getGcmDeviceDeRegistrationUrl(String loginId, String password) {
-        return "http://172.16.1.74/DeRegisterGcmId.php?LoginId=" + loginId + "&Password=" + password;
+        return "http://192.168.1.9/SSS/DeRegisterGcmId.php?LoginId=" + loginId + "&Password=" + password;
     }
 
     public static final String getLoginUrl(String loginId, String password) {
-        return "http://172.16.1.74/GetStudentDetails.php?LoginId=" + loginId + "&Password=" + password;
+        return "http://192.168.1.9/SSS/GetStudentDetails.php?LoginId=" + loginId + "&Password=" + password;
     }
 
     static final String getStudentUpdatesUrl(String Rfid) {
-        return "http://172.16.1.74/getUpdatesFromDB.php?RFID=" + Rfid;
+        return "http://192.168.1.9/SSS/getUpdatesFromDB.php?RFID=" + Rfid;
     }
 
     static final String getChangePasswordUrl(String loginId, String password) {
-        return "http://172.16.1.74/ChangePassword.php?LoginId=" + loginId + "&Password=" + password;
+        return "http://192.168.1.9/SSS/ChangePassword.php?LoginId=" + loginId + "&Password=" + password;
     }
 
     public static final ProgressDialog getProgressDialog(Context context) {
         ProgressDialog dialog = new ProgressDialog(context);
-        dialog.setMessage("Loading");
+        dialog.setMessage("Loading...");
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);

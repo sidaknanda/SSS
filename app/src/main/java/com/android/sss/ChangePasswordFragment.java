@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -87,7 +88,7 @@ public class ChangePasswordFragment extends Fragment {
             dialog.show();
             RequestQueue queue = volleySingleton.getRequestQueue();
             //TODO
-            StringRequest loginRequest = new StringRequest(Utils.getChangePasswordUrl(Utils.getLoggedInUserStudents().get(Utils.Numbers.ZERO.ordinal()).getLoginId(), changePassword), new Response.Listener<String>() {
+            StringRequest request = new StringRequest(Utils.getChangePasswordUrl(Utils.getLoggedInUserStudents().get(Utils.Numbers.ZERO.ordinal()).getLoginId(), changePassword), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     if (response.equals("1")) {
@@ -108,7 +109,11 @@ public class ChangePasswordFragment extends Fragment {
                     dialog.dismiss();
                 }
             });
-            queue.add(loginRequest);
+            request.setRetryPolicy(new DefaultRetryPolicy(
+                    15000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            queue.add(request);
         } else {
             Toast.makeText(getActivity(), getString(R.string.internet_issue), Toast.LENGTH_SHORT).show();
         }

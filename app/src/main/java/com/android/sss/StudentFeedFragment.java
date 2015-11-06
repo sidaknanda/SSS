@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -89,6 +90,10 @@ public class StudentFeedFragment extends Fragment {
                     dialog.dismiss();
                 }
             });
+            request.setRetryPolicy(new DefaultRetryPolicy(
+                    15000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             requestQueue.add(request);
             dismissSwipeToRefresh();
         } else {
@@ -116,6 +121,7 @@ public class StudentFeedFragment extends Fragment {
         rv_feedList.setItemAnimator(new DefaultItemAnimator());
         rv_feedList.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).build());
         swipeRefreshLayout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.swipeRefresh);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
