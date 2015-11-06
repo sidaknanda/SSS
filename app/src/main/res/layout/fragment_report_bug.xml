@@ -60,8 +60,6 @@
 
                     <EditText
                         android:id="@+id/editTextContactNo"
-
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Contact Number" />
@@ -73,6 +71,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:layout_marginTop="30dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
                     android:background="@drawable/buttonshape"
                     android:gravity="top|left"
                     android:hint="Feedback"
