@@ -24,9 +24,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
-/**
- * Created by OPTIMUSDOM ubuntu151 on 19/10/15.
- */
+
 public class ChangePasswordFragment extends Fragment {
 
     private View fragmentView;

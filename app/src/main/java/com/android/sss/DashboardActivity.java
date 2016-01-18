@@ -25,9 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by OPTIMUSDOM ubuntu151 on 21/9/15.
- */
+
 public class DashboardActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
@@ -225,15 +223,14 @@ public class DashboardActivity extends AppCompatActivity {
             queue.add(request);
         } else {
             Toast.makeText(this, getString(R.string.internet_issue), Toast.LENGTH_SHORT).show();
-            return;
         }
     }
 
 
     private void setupExpandableListData() {
-        dashboardMap = new HashMap();
+        dashboardMap = new HashMap<>();
 
-        dashboardList = new ArrayList();
+        dashboardList = new ArrayList<>();
 
         dashboardList.add(Utils.DASHBOARD_LIST_STUDENTS);
         dashboardList.add(Utils.DASHBOARD_LIST_CONTACTSCHOOL);
@@ -249,7 +246,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private ArrayList<String> generateContactSchoolList() {
-        ArrayList<String> contactSchool = new ArrayList();
+        ArrayList<String> contactSchool = new ArrayList<>();
         contactSchool.add(getString(R.string.call_school));
         contactSchool.add(getString(R.string.message_school));
         contactSchool.add(getString(R.string.email_school));
@@ -257,7 +254,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private ArrayList<String> generateStudentList() {
-        ArrayList<String> studentsNames = new ArrayList();
+        ArrayList<String> studentsNames = new ArrayList<>();
         for (StudentModel student : loggedInStudents) {
             studentsNames.add(student.getStudentName());
         }

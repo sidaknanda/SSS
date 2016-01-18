@@ -11,9 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-/**
- * Created by OPTIMUSDOM ubuntu151 on 26/10/15.
- */
+
 public class ReportBugFragment extends Fragment {
 
     private View fragmentView;

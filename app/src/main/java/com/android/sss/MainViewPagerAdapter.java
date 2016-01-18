@@ -7,9 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-/**
- * Created by OPTIMUSDOM ubuntu151 on 15/9/15.
- */
+
 public class MainViewPagerAdapter extends PagerAdapter {
 
     private Context mContext;

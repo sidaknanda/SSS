@@ -1,6 +1,5 @@
 package com.android.sss;
 
-import android.app.Dialog;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +12,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
@@ -22,9 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by optimus158 on 26-Aug-15.
- */
+
 public class RegisterGcmIdService extends IntentService {
 
     private final Context context = SSSApplication.getAppContext();
@@ -46,19 +42,12 @@ public class RegisterGcmIdService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         try {
-            //TODO toast wont disappear
-            // [START register_for_gcm]
-            // Initially this call goes out to the network to retrieve the token, subsequent calls
-            // are local.
-            // [START get_token]
             if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(context) == 0) {
                 InstanceID instanceID = InstanceID.getInstance(this);
                 String token = instanceID.getToken(getString(R.string.GCM_Project_Number),
                         GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
-                // [END get_token]
                 Log.i(Utils.TAG, getString(R.string.gcm_token) + token);
                 sendRegistrationToServer(token);
-                // [END register_for_gcm]
             } else {
                 Toast.makeText(context, getString(R.string.get_google_play_services), Toast.LENGTH_LONG).show();
             }

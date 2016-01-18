@@ -1,8 +1,6 @@
 package com.android.sss;
 
-/**
- * Created by OPTIMUSDOM ubuntu151 on 13/10/15.
- */
+
 public class StudentFeedModel {
 
     public String RFID;

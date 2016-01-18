@@ -3,9 +3,7 @@ package com.android.sss;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
-/**
- * Created by optimus158 on 26-Aug-15.
- */
+
 public class VolleySingleton {
 
     private static VolleySingleton singleton = null;

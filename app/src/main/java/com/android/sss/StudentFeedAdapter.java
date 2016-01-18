@@ -10,9 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- * Created by OPTIMUSDOM ubuntu151 on 13/10/15.
- */
+
 public class StudentFeedAdapter extends RecyclerView.Adapter<StudentFeedAdapter.StudentFeedViewHolder> {
 
     private Context context;

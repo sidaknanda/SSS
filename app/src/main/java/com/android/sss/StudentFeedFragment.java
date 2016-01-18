@@ -27,9 +27,7 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 
-/**
- * Created by OPTIMUSDOM ubuntu151 on 8/10/15.
- */
+
 public class StudentFeedFragment extends Fragment {
 
     private StudentModel selectedStudent;
@@ -91,9 +89,9 @@ public class StudentFeedFragment extends Fragment {
                 }
             });
             request.setRetryPolicy(new DefaultRetryPolicy(
-                    15000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                    25000,
+                    1,
+                    1));
             requestQueue.add(request);
             dismissSwipeToRefresh();
         } else {

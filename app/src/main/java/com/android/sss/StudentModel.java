@@ -3,9 +3,7 @@ package com.android.sss;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by OPTIMUSDOM ubuntu151 on 23/9/15.
- */
+
 public class StudentModel implements Parcelable {
 
     public String StudentName;

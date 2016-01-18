@@ -22,9 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-/**
- * Created by OPTIMUSDOM ubuntu151 on 18/9/15.
- */
+
 public class LoginActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;

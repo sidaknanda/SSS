@@ -11,9 +11,7 @@ import com.google.android.gms.gcm.GcmListenerService;
 
 import java.util.Random;
 
-/**
- * Created by optimus158 on 26-Aug-15.
- */
+
 public class NotificationListener extends GcmListenerService {
     @Override
     public void onMessageReceived(String from, Bundle data) {
@@ -33,7 +31,7 @@ public class NotificationListener extends GcmListenerService {
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.sss_logo)
-                .setContentTitle("GCM Message")
+                .setContentTitle("SSS")
                 .setContentText(message)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);

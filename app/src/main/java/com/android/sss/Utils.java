@@ -11,14 +11,13 @@ import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by OPTIMUSDOM ubuntu151 on 18/9/15.
- */
+
 public class Utils {
+
+    public static final String BASE_URL = "http://172.16.1.189/";
 
     public static final String TAG = "SSS";
     public static final String GCM_MESSAGE_TAG = "SSS";
@@ -37,23 +36,23 @@ public class Utils {
     public enum Numbers {ZERO, ONE, TWO, THREE, FOUR}
 
     public static final String getGcmDeviceRegistrationUrl(String loginId, String password, String gcmId) {
-        return "http://192.168.1.9/SSS/RegisterGcmId.php?LoginId=" + loginId + "&Password=" + password + "&GCMID=" + gcmId;
+        return BASE_URL + "RegisterGcmId.php?LoginId=" + loginId + "&Password=" + password + "&GCMID=" + gcmId;
     }
 
     public static final String getGcmDeviceDeRegistrationUrl(String loginId, String password) {
-        return "http://192.168.1.9/SSS/DeRegisterGcmId.php?LoginId=" + loginId + "&Password=" + password;
+        return BASE_URL + "DeRegisterGcmId.php?LoginId=" + loginId + "&Password=" + password;
     }
 
     public static final String getLoginUrl(String loginId, String password) {
-        return "http://192.168.1.9/SSS/GetStudentDetails.php?LoginId=" + loginId + "&Password=" + password;
+        return BASE_URL + "GetStudentDetails.php?LoginId=" + loginId + "&Password=" + password;
     }
 
     static final String getStudentUpdatesUrl(String Rfid) {
-        return "http://192.168.1.9/SSS/getUpdatesFromDB.php?RFID=" + Rfid;
+        return BASE_URL + "getUpdatesFromDB.php?RFID=" + Rfid;
     }
 
     static final String getChangePasswordUrl(String loginId, String password) {
-        return "http://192.168.1.9/SSS/ChangePassword.php?LoginId=" + loginId + "&Password=" + password;
+        return BASE_URL + "ChangePassword.php?LoginId=" + loginId + "&Password=" + password;
     }
 
     public static final ProgressDialog getProgressDialog(Context context) {
@@ -65,7 +64,7 @@ public class Utils {
         return dialog;
     }
 
-    public static final ArrayList<StudentModel> getLoggedInUserStudents() {
+    public static ArrayList<StudentModel> getLoggedInUserStudents() {
         try {
             SharedPreferences preferences = SSSApplication.getAppContext().getSharedPreferences(PREF_SSS_PREFERENCES, Context.MODE_PRIVATE);
             JSONArray studentsArray = new JSONArray(preferences.getString(PREF_JSON_USER_DETAILS, null));
